@@ -80,3 +80,30 @@ def partition_randomized(array, first_index, last_index):
             break
     array[first_index], array[j] = array[j], array[first_index]
     return j
+
+
+# 3: Median of three
+def quick_sort_median(array, first_index, last_index):
+    if first_index < last_index:
+        pivot_index = partition_median(array, first_index, last_index)
+        quick_sort_median(array, first_index, pivot_index - 1)
+        quick_sort_median(array, pivot_index + 1, last_index)
+
+
+def partition_median(array, first_index, last_index):
+    median = (sorted([array[first_index], array[first_index + (last_index - first_index) // 2], array[last_index]]))[1]
+    array[first_index], array[array.index(median)] = array[array.index(median)], array[first_index]
+    pivot = array[first_index]
+    i = first_index + 1
+    j = last_index
+    while True:
+        while i <= j and array[i] <= pivot:
+            i += 1
+        while i <= j and array[j] >= pivot:
+            j -= 1
+        if i <= j:
+            array[i], array[j] = array[j], array[i]
+        else:
+            break
+    array[first_index], array[j] = array[j], array[first_index]
+    return j
