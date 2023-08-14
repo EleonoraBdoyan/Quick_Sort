@@ -107,3 +107,26 @@ def partition_median(array, first_index, last_index):
             break
     array[first_index], array[j] = array[j], array[first_index]
     return j
+
+
+# Counting sort
+def count_sort_1(array):
+    count = [0] * (max(array) + 1)
+    for num in array:
+        count[num] += 1
+    array = []
+    for index, number in enumerate(count):
+        array.extend([index] * number)
+    return array
+
+
+def count_sort_2(array):
+    count = [0] * (max(array) + 1)
+    for num in array:
+        count[num] += 1
+    index = 0
+    for num in range(len(count)):
+        array[index:(index + count[num])] = [num] * count[num]
+        if count[num] != 0:
+            index += count[num]
+    return array
